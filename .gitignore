@@ -1,0 +1,23 @@
+
+# Banco de dados e documentos enviados
+instance/
+*.db
+*.sqlite
+*.sqlite3
+uploads/
+
+# Arquivos temporários do Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Configurações e segredos
+.env
+.env.*
+!.env.example
+
+# Arquivos locais
+.DS_Store
+Thumbs.db
