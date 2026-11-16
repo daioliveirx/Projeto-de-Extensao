@@ -46,6 +46,23 @@ def create_app(test_config=None):
     with app.app_context():
         init_db()
 
+    if os.environ.get("APP_ENV") == "production":
+        if os.environ.get("DEMO_REQUIRE_LOGIN") != "1":
+            raise RuntimeError(
+                "A proteção por senha deve estar ativa em produção."
+            )
+
+        if not os.environ.get("DEMO_ACCESS_PASSWORD"):
+            raise RuntimeError(
+                "Configure DEMO_ACCESS_PASSWORD."
+            )
+
+        app.config.update(
+            SESSION_COOKIE_SECURE=True,
+            SESSION_COOKIE_HTTPONLY=True,
+            SESSION_COOKIE_SAMESITE="Lax"
+        )
+
     from flask import session, redirect, url_for
     import hmac
 
